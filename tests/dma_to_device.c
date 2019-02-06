@@ -1,4 +1,4 @@
-#define _BSD_SOURCE
+#define _DEFAULT_SOURCE
 #define _XOPEN_SOURCE 500
 #include <assert.h>
 #include <fcntl.h>
@@ -175,7 +175,7 @@ static int test_dma(char *devicename, uint32_t addr, uint32_t size, uint32_t off
     /* select AXI MM address */
     off_t off = lseek(fpga_fd, addr, SEEK_SET);
   while (count--) {
-  
+
     rc = clock_gettime(CLOCK_MONOTONIC, &ts_start);
     /* write buffer to AXI MM address using SGDMA */
     rc = write(fpga_fd, buffer, size);
