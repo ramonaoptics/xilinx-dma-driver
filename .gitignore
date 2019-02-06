@@ -1,0 +1,9 @@
+driver/.cache.mk
+driver/.tmp_versions/
+driver/*.o
+driver/*.cmd
+driver/Module.symvers
+driver/modules.order
+driver/xdma-core.o.ur-safe
+driver/xdma.ko
+driver/xdma.mod.c
