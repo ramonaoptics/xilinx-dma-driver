@@ -379,7 +379,7 @@ static const struct file_operations bypass_fops = {
 	.release = char_close,
 	.read = char_bypass_read,
 	.write = char_bypass_write,
-	.mmap = bridge_mmap,	
+	.mmap = bridge_mmap,
 };
 
 
@@ -1061,7 +1061,7 @@ static int engine_ring_process(struct xdma_engine *engine)
 			/* flag to user space that overrun has occurred */
 			engine->rx_overrun = 1;
 		}
-	
+
 	}
 
 	return eop_count;
@@ -1260,7 +1260,7 @@ static void engine_err_handle(struct xdma_engine *engine,
 	dbg_tfr("%s engine was %d descriptors into transfer (with %d desc)\n",
 		engine->name, desc_completed, transfer->desc_num);
 	dbg_tfr("%s engine status = %d\n", engine->name, engine->status);
-	
+
 	/* mark transfer as failed */
 	transfer->state = TRANSFER_STATE_FAILED;
 	xdma_engine_stop(engine);
@@ -3569,7 +3569,7 @@ static int complete_cyclic(struct xdma_engine *engine, char __user *buf)
 			/* valid result */
 		} else {
 			pkt_length += result[engine->rx_head].length;
-			num_credit++; 
+			num_credit++;
 			/* seen eop? */
 			//if (result[engine->rx_head].status & RX_STATUS_EOP)
 			if (result[engine->rx_head].status & RX_STATUS_EOP){
@@ -3598,9 +3598,9 @@ static int complete_cyclic(struct xdma_engine *engine, char __user *buf)
 		rc = -EIO;
 	//else if (eop)
 	else{
-		
+
 		rc = copy_cyclic_to_user(engine, pkt_length, head, buf);
-		engine->rx_overrun = 0; 
+		engine->rx_overrun = 0;
 		/* if copy is successful, release credits */
 		if(rc>0){
 			write_register(num_credit,&engine->sgdma_regs->credits);
@@ -4318,7 +4318,24 @@ static int probe_scan_for_msi(struct xdma_dev *lro, struct pci_dev *pdev)
 		for (i = 0; i < req_nvec; i++)
 			lro->entry[i].entry = i;
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4,8,0)
 		rc = pci_enable_msix(pdev, lro->entry, req_nvec);
+#elif LINUX_VERSION_CODE < KERNEL_VERSION(4,11,0)
+		// Untested taken from
+		// https://stackoverflow.com/questions/49203728/pcie-dma-driver-for-linux
+		rc = pci_enable_msix_range(pdev, lro->entry, req_nvec, req_nvec);
+#else
+		// Adapted from the patch
+		//
+		// https://patchwork.kernel.org/patch/9505891/
+		// Find something similar to
+		// > -	ret = pci_enable_msix_range(pdata->pcidev, pdata->msix_entries,
+		// > -				    XGBE_MSIX_MIN_COUNT, msix_count);
+		// > +	ret = pci_alloc_irq_vectors(pdata->pcidev, XGBE_MSIX_MIN_COUNT,
+		// > +			msix_count, PCI_IRQ_MSIX);
+		rc = pci_alloc_irq_vectors(pdev, req_nvec, req_nvec, PCI_IRQ_MSIX);
+#endif
+
 		if (rc < 0)
 			dbg_init("Couldn't enable MSI-X mode: rc = %d\n", rc);
 
@@ -4502,12 +4519,12 @@ static int irq_setup(struct xdma_dev *lro, struct pci_dev *pdev)
 				w = (val<<24) | (val<<16) | (val<<8)| val;
 				// Program IRQ Block Channel vactor and IRQ Block User vector with Legacy interrupt value
 				reg = lro->bar[lro->config_bar_idx] + 0x2080;   // IRQ user
-				write_register(w, reg);      
+				write_register(w, reg);
 				write_register(w, reg+0x4);
 				write_register(w, reg+0x8);
 				write_register(w, reg+0xC);
 				reg = lro->bar[lro->config_bar_idx] + 0x20A0;   // IRQ Block
-				write_register(w, reg);     
+				write_register(w, reg);
 				write_register(w, reg+0x4);
 			}
 		}
@@ -4672,7 +4689,7 @@ static void destroy_interfaces(struct xdma_dev *lro)
 			destroy_sg_char(lro->bypass_char_dev[channel][1]);
 	}
 
-	if (lro->bypass_char_dev_base) 
+	if (lro->bypass_char_dev_base)
                 destroy_sg_char(lro->bypass_char_dev_base);
 
 	for (idx = 0; idx < MAX_USER_IRQ; idx++) {
@@ -4980,7 +4997,7 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
 
 	/* enable relaxed ordering */
 	enable_pcie_relaxed_ordering(pdev);
-        
+
 	/* enable bus master capability */
 	dbg_init("pci_set_master()\n");
 	pci_set_master(pdev);
@@ -5023,7 +5040,7 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
 	rc = irq_setup(lro, pdev);
 	if (rc)
 		goto disable_irq;
-    
+
 	/* enable credit system only in AXI-Stream mode*/
 	reg = lro->bar[lro->config_bar_idx];
         w = read_register(reg);
@@ -5066,7 +5083,7 @@ static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
 
 	lro->feature_id = find_feature_id(lro);
 	#endif
-	
+
 	printk(KERN_DEBUG "Create device attribute file for major =%d, instance = %d\n", (int)lro->major, (int)lro->instance);
 	rc = device_create_file(&pdev->dev, &dev_attr_xdma_dev_instance);
 	if(rc){
@@ -5166,12 +5183,12 @@ static void remove(struct pci_dev *pdev)
 			memcpy(clear_contr, &lro->stash, sizeof(struct xdma_bitstream_container));
 	}
 	#endif
-	
+
 	dev_present[lro->instance] = 0;
 	device_remove_file(&pdev->dev, &dev_attr_xdma_dev_instance);
 
 	kfree(lro);
-	
+
 	#if SD_ACCEL && 1
 	dev_set_drvdata(&pdev->dev, clear_contr);
 	#endif
@@ -5584,7 +5601,7 @@ static int gen_dev_minor(struct xdma_engine *engine, enum chardev_type type,
 		BUG_ON(engine->number_in_channel >= 2);
 		tmp = engine->number_in_channel * 4;
 		minor = 64 + tmp + engine->channel;
-	} else if (type == CHAR_BYPASS) { 
+	} else if (type == CHAR_BYPASS) {
                 minor = 100;
 	} else if (type == CHAR_EVENTS) {
 		minor = 10 + event_id;
