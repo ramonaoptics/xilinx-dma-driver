@@ -1,3 +1,4 @@
+# Driver files
 driver/.cache.mk
 driver/.tmp_versions/
 driver/*.o
@@ -7,3 +8,10 @@ driver/modules.order
 driver/xdma-core.o.ur-safe
 driver/xdma.ko
 driver/xdma.mod.c
+
+# Test files
+tests/dma_from_device
+tests/dma_to_device
+tests/performance
+tests/reg_rw
+tests/*.o
