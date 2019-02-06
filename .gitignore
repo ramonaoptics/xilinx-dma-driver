@@ -15,3 +15,5 @@ tests/dma_to_device
 tests/performance
 tests/reg_rw
 tests/*.o
+
+tests/hw_log_*.txt
