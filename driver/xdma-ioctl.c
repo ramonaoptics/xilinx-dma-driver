@@ -498,4 +498,3 @@ long reset_device_if_running(struct xdma_dev *lro)
 }
 
 #endif /* SD_ACCEL */
-

@@ -230,7 +230,7 @@
 	#define NODE_PREFIX "xcldma"
 #else
 	#define NODE_PREFIX DRV_NAME
-#endif 
+#endif
 
 /* SECTION: Enum definitions */
 
@@ -559,7 +559,7 @@ struct xdma_dev {
 	int irq_line;		/* flag if irq allocated successfully */
 	int msi_enabled;	/* flag if msi was enabled for the device */
 	int msix_enabled;	/* flag if msi-x was enabled for the device */
-	int irq_user_count;	/* user interrupt count */     
+	int irq_user_count;	/* user interrupt count */
 	struct msix_entry entry[32];	/* msi-x vector/entry table */
 	struct xdma_irq user_irq[16];	/* user IRQ management */
 

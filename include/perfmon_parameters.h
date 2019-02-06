@@ -269,4 +269,3 @@
 #define XAPM_MIN_LATENCY_SHIFT			0          /**< Min Latency Shift */
 
 #endif
-

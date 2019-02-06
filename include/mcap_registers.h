@@ -49,4 +49,3 @@
 #define EMCAP_NOOP_VAL	0x2000000
 
 #endif
-

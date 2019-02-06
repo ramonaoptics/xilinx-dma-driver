@@ -26,15 +26,15 @@
 #  define htoll(x)     __bswap_32(x)
 #  define htols(x)     __bswap_16(x)
 #endif
-  
+
 #define FATAL do { fprintf(stderr, "Error at line %d, file %s (%d) [%s]\n", __LINE__, __FILE__, errno, strerror(errno)); exit(1); } while(0)
- 
+
 #define MAP_SIZE (32*1024UL)
 #define MAP_MASK (MAP_SIZE - 1)
 
 int main(int argc, char **argv) {
   int fd;
-  void *map_base, *virt_addr; 
+  void *map_base, *virt_addr;
   uint32_t read_result, writeval;
   off_t target;
   /* access width */
@@ -82,30 +82,30 @@ int main(int argc, char **argv) {
   }
 
     if ((fd = open(argv[1], O_RDWR | O_SYNC)) == -1) FATAL;
-    printf("character device %s opened.\n", argv[1]); 
+    printf("character device %s opened.\n", argv[1]);
     fflush(stdout);
 
     /* map one page */
     map_base = mmap(0, MAP_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if (map_base == (void *) -1) FATAL;
-    printf("Memory mapped at address %p.\n", map_base); 
+    printf("Memory mapped at address %p.\n", map_base);
     fflush(stdout);
 
     /* calculate the virtual address to be accessed */
     virt_addr = map_base + target;
     /* read only */
     if (argc <= 4) {
-      //printf("Read from address %p.\n", virt_addr); 
+      //printf("Read from address %p.\n", virt_addr);
       switch(access_width) {
 	case 'b':
 	  read_result = *((uint8_t *) virt_addr);
-	  printf("Read 8-bits value at address 0x%08x (%p): 0x%02x\n", (unsigned int)target, virt_addr, (unsigned int)read_result); 
+	  printf("Read 8-bits value at address 0x%08x (%p): 0x%02x\n", (unsigned int)target, virt_addr, (unsigned int)read_result);
 	  break;
 	case 'h':
 	  read_result = *((uint16_t *) virt_addr);
     /* swap 16-bit endianess if host is not little-endian */
     read_result = ltohs(read_result);
-    printf("Read 16-bit value at address 0x%08x (%p): 0x%04x\n", (unsigned int)target, virt_addr, (unsigned int)read_result); 
+    printf("Read 16-bit value at address 0x%08x (%p): 0x%04x\n", (unsigned int)target, virt_addr, (unsigned int)read_result);
 	  break;
 	case 'w':
 	  read_result = *((uint32_t *) virt_addr);
@@ -132,31 +132,31 @@ int main(int argc, char **argv) {
 #if 0
           if (argc > 4) {
             read_result = *((uint8_t *) virt_addr);
-            printf("Written 0x%02x; readback 0x%02x\n", writeval, read_result); 
+            printf("Written 0x%02x; readback 0x%02x\n", writeval, read_result);
           }
 #endif
           break;
         case 'h':
-          printf("Write 16-bits value 0x%04x to 0x%08x (0x%p)\n", (unsigned int)writeval, (unsigned int)target, virt_addr); 
+          printf("Write 16-bits value 0x%04x to 0x%08x (0x%p)\n", (unsigned int)writeval, (unsigned int)target, virt_addr);
           /* swap 16-bit endianess if host is not little-endian */
           writeval = htols(writeval);
           *((uint16_t *) virt_addr) = writeval;
 #if 0
           if (argc > 4) {
             read_result = *((uint16_t *) virt_addr);
-            printf("Written 0x%04x; readback 0x%04x\n", writeval, read_result); 
+            printf("Written 0x%04x; readback 0x%04x\n", writeval, read_result);
           }
 #endif
           break;
         case 'w':
-          printf("Write 32-bits value 0x%08x to 0x%08x (0x%p)\n", (unsigned int)writeval, (unsigned int)target, virt_addr); 
+          printf("Write 32-bits value 0x%08x to 0x%08x (0x%p)\n", (unsigned int)writeval, (unsigned int)target, virt_addr);
           /* swap 32-bit endianess if host is not little-endian */
-          writeval = htoll(writeval);          
+          writeval = htoll(writeval);
           *((uint32_t *) virt_addr) = writeval;
 #if 0
           if (argc > 4) {
             read_result = *((uint32_t *) virt_addr);
-            printf("Written 0x%08x; readback 0x%08x\n", writeval, read_result); 
+            printf("Written 0x%08x; readback 0x%08x\n", writeval, read_result);
           }
 #endif
 	  break;
@@ -167,5 +167,3 @@ int main(int argc, char **argv) {
     close(fd);
     return 0;
 }
-
-

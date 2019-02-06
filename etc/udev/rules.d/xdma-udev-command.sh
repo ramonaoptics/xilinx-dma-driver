@@ -12,5 +12,3 @@ echo $1 | \
 /bin/sed 's:xdma\([0-9][0-9]*\)_\([ch]2[ch]\)_\([0-9]*\):xdma/card\1/\2\3:' | \
 /bin/sed 's:xdma\([0-9][0-9]*\)_bypass_\([ch]2[ch]\)_\([0-9]*\):xdma/card\1/bypass_\2\3:' | \
 /bin/sed 's:xdma\([0-9][0-9]*\)_\([a-z]*\):xdma/card\1/\2:'
-
-

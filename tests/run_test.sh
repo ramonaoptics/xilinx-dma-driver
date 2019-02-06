@@ -6,7 +6,7 @@
 
 # Size of PCIe DMA transfers that will be used for this test.
 # Make sure valid addresses exist in the FPGA when modifying this
-# variable. Addresses in the range of 0 - (4 * transferSize) will  
+# variable. Addresses in the range of 0 - (4 * transferSize) will
 # be used for this test when the PCIe DMA core is setup for memory
 # mapped transaction.
 transferSize=1024

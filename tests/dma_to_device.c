@@ -194,4 +194,3 @@ static int test_dma(char *devicename, uint32_t addr, uint32_t size, uint32_t off
   }
   free(allocated);
 }
-
