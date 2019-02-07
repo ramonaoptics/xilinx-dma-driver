@@ -1,0 +1,13 @@
+*.o
+*.o.ur-safe
+*.o.cmd
+*.ko
+
+
+# One off kernel files
+xdma/.cache.mk
+xdma/.tmp_versions/
+xdma/.xdma.ko.cmd
+xdma/Module.symvers
+xdma/modules.order
+xdma/xdma.mod.c
