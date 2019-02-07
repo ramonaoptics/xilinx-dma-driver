@@ -11,3 +11,8 @@ xdma/.xdma.ko.cmd
 xdma/Module.symvers
 xdma/modules.order
 xdma/xdma.mod.c
+
+tools/dma_from_device
+tools/dma_to_device
+tools/performance
+tools/reg_rw
