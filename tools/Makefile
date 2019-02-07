@@ -18,5 +18,5 @@ reg_rw: reg_rw.o
 	$(CC) -c -std=c99 -o $@ $< -D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE -D_LARGE_FILE_SOURCE
 
 clean:
-	rm -rf reg_rw *.o *.bin dma_to_device dma_from_device performance 
+	rm -rf reg_rw *.o *.bin dma_to_device dma_from_device performance
 

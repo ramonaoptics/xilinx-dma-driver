@@ -1,3 +1,15 @@
+/*
+ * This file is part of the Xilinx DMA IP Core driver tools for Linux
+ *
+ * Copyright (c) 2016-present,  Xilinx, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under both the BSD-style license (found in the
+ * LICENSE file in the root directory of this source tree) and the GPLv2 (found
+ * in the COPYING file in the root directory of this source tree).
+ * You may select, at your option, one of the above-listed licenses.
+ */
+
 #include <assert.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -15,7 +27,7 @@
 #include <sys/types.h>
 
 /* @TODO During kernel upstreaming, the IOCTL must move into the public user API of the kernel */
-#include "../include/xdma-ioctl.h"
+#include "../xdma/cdev_sgdma.h"
 
 struct xdma_performance_ioctl perf;
 
@@ -52,7 +64,7 @@ static uint32_t getopt_integer(char *optarg)
   rc = sscanf(optarg, "0x%x", &value);
   if (rc <= 0)
     rc = sscanf(optarg, "%ul", &value);
-  printf("sscanf() = %d, value = 0x%08x\n", rc, (unsigned int)value);
+  //printf("sscanf() = %d, value = 0x%08x\n", rc, (unsigned int)value);
   return value;
 }
 
