@@ -16,5 +16,3 @@ tools/dma_from_device
 tools/dma_to_device
 tools/performance
 tools/reg_rw
-
-tests/data
