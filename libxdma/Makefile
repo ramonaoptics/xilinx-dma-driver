@@ -4,7 +4,7 @@ topdir := $(shell cd $(src)/.. && pwd)
 
 TARGET_MODULE:=libxdma
 
-EXTRA_CFLAGS := -I$(topdir)/include
+EXTRA_CFLAGS := -I$(topdir)/include -I$(topdir)/xdma
 EXTRA_CFLAGS += -D__LIBXDMA_MOD__
 
 ifneq ($(KERNELRELEASE),)

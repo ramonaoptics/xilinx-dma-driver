@@ -3,6 +3,12 @@
 *.o.cmd
 *.ko
 
+libxdma/libxdma.mod.c
+libxdma/modules.order
+libxdma/.tmp_versions
+libxdma/.libxdma.ko.cmd
+libxdma/.cache.mk
+libxdma/Module.symvers
 
 # One off kernel files
 xdma/.cache.mk
