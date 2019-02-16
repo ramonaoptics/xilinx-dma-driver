@@ -32,8 +32,13 @@ void dump_desc(struct xdma_desc *desc_virt)
 	int j;
 	u32 *p = (u32 *)desc_virt;
 	static char * const field_name[] = {
-		"magic|extra_adjacent|control", "bytes", "src_addr_lo",
-		"src_addr_hi", "dst_addr_lo", "dst_addr_hi", "next_addr",
+		"magic|extra_adjacent|control",
+		"bytes",
+		"src_addr_lo",
+		"src_addr_hi",
+		"dst_addr_lo",
+		"dst_addr_hi",
+		"next_addr",
 		"next_addr_pad"};
 	char *dummy;
 
