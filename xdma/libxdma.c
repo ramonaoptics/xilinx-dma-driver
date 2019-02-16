@@ -149,8 +149,8 @@ static inline int debug_check_dev_hndl(const char *fname, struct pci_dev *pdev,
 	return 0;
 }
 
-#ifdef __LIBXDMA_DEBUG__
 /* SECTION: Function definitions */
+#ifdef __LIBXDMA_DEBUG__
 inline void __write_register(const char *fn, u32 value, void *iomem, unsigned long off)
 {
 	pr_err("%s: w reg 0x%lx(0x%p), 0x%x.\n", fn, off, iomem, value);
