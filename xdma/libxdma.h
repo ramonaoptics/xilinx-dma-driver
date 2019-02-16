@@ -26,7 +26,7 @@
 #include <linux/workqueue.h>
 
 /* Switch debug printing on/off */
-#define XDMA_DEBUG 0
+#define XDMA_DEBUG 1
 
 /* SECTION: Preprocessor macros/constants */
 #define XDMA_BAR_NUM (6)

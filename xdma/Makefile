@@ -14,7 +14,7 @@ topdir := $(shell cd $(src)/.. && pwd)
 TARGET_MODULE:=xdma
 
 EXTRA_CFLAGS := -I$(topdir)/include $(XVC_FLAGS)
-#EXTRA_CFLAGS += -D__LIBXDMA_DEBUG__
+EXTRA_CFLAGS += -D__LIBXDMA_DEBUG__
 #EXTRA_CFLAGS += -DINTERNAL_TESTING
 
 ifneq ($(KERNELRELEASE),)
