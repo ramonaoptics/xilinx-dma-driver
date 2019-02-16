@@ -10,7 +10,7 @@
  * You may select, at your option, one of the above-listed licenses.
  */
 
-#define _BSD_SOURCE
+#define _DEFAULT_SOURCE
 #define _XOPEN_SOURCE 500
 #include <assert.h>
 #include <fcntl.h>
@@ -22,6 +22,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <time.h>
+#include <errno.h>
 
 #include <sys/mman.h>
 #include <sys/stat.h>
@@ -29,7 +30,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "dma_utils.c"
+#include "dma_utils.h"
 
 static struct option const long_opts[] = {
 	{"device", required_argument, NULL, 'd'},
@@ -247,7 +248,7 @@ static int test_dma(char *devname, uint64_t addr, uint64_t size,
 		}
 	}
 	avg_time = (float)total_time/(float)count;
-	result = ((float)sdma_utils.cize)*1000/avg_time;
+	result = ((float)size)*1000/avg_time;
 	if (verbose)
 	printf("** Avg time device %s, total time %ld nsec, avg_time = %f, size = %lu, BW = %f \n",
 		devname, total_time, avg_time, size, result);
