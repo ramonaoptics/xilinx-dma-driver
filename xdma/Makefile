@@ -27,6 +27,7 @@ all :
 	$(MAKE) -C $(BUILDSYSTEM_DIR) M=$(PWD) modules
 
 clean:
+	rm *.ur-safe
 	$(MAKE) -C $(BUILDSYSTEM_DIR) M=$(PWD) clean
 
 install: all
