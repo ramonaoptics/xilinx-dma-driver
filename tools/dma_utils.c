@@ -78,7 +78,7 @@ ssize_t read_to_buffer(char *fname, int fd, char *buffer, uint64_t size,
 		count += bytes;
 		buf += bytes;
 		offset += bytes;
-	}	 
+	}
 
 	if (count != size) {
 		fprintf(stderr, "%s, R failed 0x%lx != 0x%lx.\n",
@@ -124,7 +124,7 @@ ssize_t write_from_buffer(char *fname, int fd, char *buffer, uint64_t size,
 		count += bytes;
 		buf += bytes;
 		offset += bytes;
-	}	 
+	}
 
 	if (count != size) {
 		fprintf(stderr, "%s, R failed 0x%lx != 0x%lx.\n",
@@ -170,4 +170,3 @@ void timespec_sub(struct timespec *t1, struct timespec *t2)
 		t1->tv_nsec += 1000000000;
 	}
 }
-
