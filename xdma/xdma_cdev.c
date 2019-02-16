@@ -41,12 +41,12 @@ static const char * const devnode_names[] = {
 };
 
 enum xpdev_flags_bits {
-        XDF_CDEV_USER,
-        XDF_CDEV_CTRL,
-        XDF_CDEV_XVC,
-        XDF_CDEV_EVENT,
-        XDF_CDEV_SG,
-        XDF_CDEV_BYPASS,
+	XDF_CDEV_USER,
+	XDF_CDEV_CTRL,
+	XDF_CDEV_XVC,
+	XDF_CDEV_EVENT,
+	XDF_CDEV_SG,
+	XDF_CDEV_BYPASS,
 };
 
 static inline void xpdev_flag_set(struct xdma_pci_dev *xpdev,
@@ -126,7 +126,7 @@ int xcdev_check(const char *fname, struct xdma_cdev *xcdev, bool check_engine)
 		return -EINVAL;
 	}
 
-        xdev = xcdev->xdev;
+	xdev = xcdev->xdev;
 	if (!xdev || xdev->magic != MAGIC_DEVICE) {
 		pr_info("%s, xdev 0x%p, magic 0x%lx.\n",
 			fname, xdev, xdev ? xdev->magic : 0xFFFFFFFF);	
@@ -134,7 +134,7 @@ int xcdev_check(const char *fname, struct xdma_cdev *xcdev, bool check_engine)
 	}
 
 	if (check_engine) {
-        	struct xdma_engine *engine = xcdev->engine;
+		struct xdma_engine *engine = xcdev->engine;
 		if (!engine || engine->magic != MAGIC_ENGINE) {
 			pr_info("%s, engine 0x%p, magic 0x%lx.\n", fname,
 				engine, engine ? engine->magic : 0xFFFFFFFF);	
@@ -186,25 +186,25 @@ int char_close(struct inode *inode, struct file *file)
 
 static int create_sys_device(struct xdma_cdev *xcdev, enum cdev_type type)
 {
-        struct xdma_dev *xdev = xcdev->xdev;
-        struct xdma_engine *engine = xcdev->engine;
-        int last_param;
+	struct xdma_dev *xdev = xcdev->xdev;
+	struct xdma_engine *engine = xcdev->engine;
+	int last_param;
 
-        if (type == CHAR_EVENTS)
-                last_param = xcdev->bar;
-        else
-                last_param = engine ? engine->channel : 0;
+	if (type == CHAR_EVENTS)
+		last_param = xcdev->bar;
+	else
+		last_param = engine ? engine->channel : 0;
 
-        xcdev->sys_device = device_create(g_xdma_class, &xdev->pdev->dev,
-                xcdev->cdevno, NULL, devnode_names[type], xdev->idx,
-                last_param);
+	xcdev->sys_device = device_create(g_xdma_class, &xdev->pdev->dev,
+		xcdev->cdevno, NULL, devnode_names[type], xdev->idx,
+		last_param);
 
-        if (!xcdev->sys_device) {
-                pr_err("device_create(%s) failed\n", devnode_names[type]);
-                return -1;
-        }
+	if (!xcdev->sys_device) {
+		pr_err("device_create(%s) failed\n", devnode_names[type]);
+		return -1;
+	}
 
-        return 0;
+	return 0;
 }
 
 static int destroy_xcdev(struct xdma_cdev *cdev)
@@ -339,7 +339,7 @@ void xpdev_destroy_interfaces(struct xdma_pci_dev *xpdev)
 	int i;
 
 #ifdef __XDMA_SYSFS__
-        device_remove_file(&xpdev->pdev->dev, &dev_attr_xdma_dev_instance);
+	device_remove_file(&xpdev->pdev->dev, &dev_attr_xdma_dev_instance);
 #endif
 
 	if (xpdev_flag_test(xpdev, XDF_CDEV_SG)) {
@@ -524,10 +524,10 @@ fail:
 int xdma_cdev_init(void)
 {
 	g_xdma_class = class_create(THIS_MODULE, XDMA_NODE_NAME);
-        if (IS_ERR(g_xdma_class)) {
-                dbg_init(XDMA_NODE_NAME ": failed to create class");
-                return -1;
-        }
+	if (IS_ERR(g_xdma_class)) {
+		dbg_init(XDMA_NODE_NAME ": failed to create class");
+		return -1;
+	}
 
 	return 0;
 }
