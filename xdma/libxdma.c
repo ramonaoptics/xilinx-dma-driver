@@ -188,7 +188,7 @@ static void check_nonzero_interrupt_status(struct xdma_dev *xdev)
 
 	w = read_register(&reg->channel_int_enable);
 	if (w)
-	pr_info("%s xdma%d channel_int_enable = 0x%08x\n",
+		pr_info("%s xdma%d channel_int_enable = 0x%08x\n",
 			dev_name(&xdev->pdev->dev), xdev->idx, w);
 
 	w = read_register(&reg->user_int_request);
