@@ -118,7 +118,7 @@ static void xpdev_free(struct xdma_pci_dev *xpdev)
 
 static struct xdma_pci_dev *xpdev_alloc(struct pci_dev *pdev)
 {
-	struct xdma_pci_dev *xpdev = kmalloc(sizeof(*xpdev), GFP_KERNEL);	
+	struct xdma_pci_dev *xpdev = kmalloc(sizeof(*xpdev), GFP_KERNEL);
 
 	if (!xpdev)
 		return NULL;
@@ -188,7 +188,7 @@ static int probe_one(struct pci_dev *pdev, const struct pci_device_id *id)
 
 	return 0;
 
-err_out:	
+err_out:
 	pr_err("pdev 0x%p, err %d.\n", pdev, rv);
 	xpdev_free(xpdev);
 	return rv;
