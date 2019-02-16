@@ -123,7 +123,7 @@
 /* all combined */
 #define XDMA_STAT_H2C_ERR_MASK	\
 	(XDMA_STAT_COMMON_ERR_MASK | XDMA_STAT_DESC_ERR_MASK | \
-	 XDMA_STAT_H2C_R_ERR_MASK | XDMA_STAT_H2C_W_ERR_MASK) 
+	 XDMA_STAT_H2C_R_ERR_MASK | XDMA_STAT_H2C_W_ERR_MASK)
 
 #define XDMA_STAT_C2H_ERR_MASK	\
 	(XDMA_STAT_COMMON_ERR_MASK | XDMA_STAT_DESC_ERR_MASK | \
@@ -146,7 +146,7 @@
 #define XDMA_ID_C2H 0x1fc1U
 
 /* for C2H AXI-ST mode */
-#define CYCLIC_RX_PAGES_MAX	256	
+#define CYCLIC_RX_PAGES_MAX	256
 
 #define LS_BYTE_MASK 0x000000FFUL
 
@@ -439,8 +439,8 @@ struct xdma_engine {
 	/* Members applicable to AXI-ST C2H (cyclic) transfers */
 	struct xdma_result *cyclic_result;
 	dma_addr_t cyclic_result_bus;	/* bus addr for transfer */
-	struct xdma_request_cb *cyclic_req; 
-	struct sg_table cyclic_sgt; 
+	struct xdma_request_cb *cyclic_req;
+	struct sg_table cyclic_sgt;
 	u8 eop_found; /* used only for cyclic(rx:c2h) */
 
 	int rx_tail;	/* follows the HW */
@@ -479,7 +479,7 @@ struct xdma_user_irq {
 	wait_queue_head_t events_wq;	/* wait queue to sync waiting threads */
 	irq_handler_t handler;
 
-	void *dev;	
+	void *dev;
 };
 
 /* XDMA PCIe device specific book-keeping */
