@@ -122,14 +122,14 @@ int xcdev_check(const char *fname, struct xdma_cdev *xcdev, bool check_engine)
 
 	if (!xcdev || xcdev->magic != MAGIC_CHAR) {
 		pr_info("%s, xcdev 0x%p, magic 0x%lx.\n",
-			fname, xcdev, xcdev ? xcdev->magic : 0xFFFFFFFF);	
+			fname, xcdev, xcdev ? xcdev->magic : 0xFFFFFFFF);
 		return -EINVAL;
 	}
 
 	xdev = xcdev->xdev;
 	if (!xdev || xdev->magic != MAGIC_DEVICE) {
 		pr_info("%s, xdev 0x%p, magic 0x%lx.\n",
-			fname, xdev, xdev ? xdev->magic : 0xFFFFFFFF);	
+			fname, xdev, xdev ? xdev->magic : 0xFFFFFFFF);
 		return -EINVAL;
 	}
 
@@ -137,7 +137,7 @@ int xcdev_check(const char *fname, struct xdma_cdev *xcdev, bool check_engine)
 		struct xdma_engine *engine = xcdev->engine;
 		if (!engine || engine->magic != MAGIC_ENGINE) {
 			pr_info("%s, engine 0x%p, magic 0x%lx.\n", fname,
-				engine, engine ? engine->magic : 0xFFFFFFFF);	
+				engine, engine ? engine->magic : 0xFFFFFFFF);
 			return -EINVAL;
 		}
 	}

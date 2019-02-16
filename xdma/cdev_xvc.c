@@ -166,7 +166,7 @@ static long xvc_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 		u32 tms_store = 0;
 		u32 tdi_store = 0;
 		u32 tdo_store = 0;
-		
+
 		if (bits_left < 32) {
 			/* set number of bits to shift out */
 			write_register(bits_left, iobase, XVC_BAR_LENGTH_REG);

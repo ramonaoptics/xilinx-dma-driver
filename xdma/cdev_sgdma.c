@@ -279,7 +279,7 @@ static ssize_t char_sgdma_read_write(struct file *file, char __user *buf,
 		return rv;
 
 	res = xdma_xfer_submit(xdev, engine->channel, write, *pos, &cb.sgt,
-				0, sgdma_timeout * 1000);	
+				0, sgdma_timeout * 1000);
 	//pr_err("xfer_submit return=%lld.\n", (s64)res);
 
 	//interrupt_status(xdev);
@@ -425,12 +425,12 @@ static int ioctl_do_perf_get(struct xdma_engine *engine, unsigned long arg)
 	return 0;
 }
 
-static int ioctl_do_addrmode_set(struct xdma_engine *engine, unsigned long arg) 
+static int ioctl_do_addrmode_set(struct xdma_engine *engine, unsigned long arg)
 {
 	return engine_addrmode_set(engine, arg);
 }
 
-static int ioctl_do_addrmode_get(struct xdma_engine *engine, unsigned long arg) 
+static int ioctl_do_addrmode_get(struct xdma_engine *engine, unsigned long arg)
 {
 	int rv;
 	unsigned long src;
@@ -444,7 +444,7 @@ static int ioctl_do_addrmode_get(struct xdma_engine *engine, unsigned long arg)
 	return rv;
 }
 
-static int ioctl_do_align_get(struct xdma_engine *engine, unsigned long arg) 
+static int ioctl_do_align_get(struct xdma_engine *engine, unsigned long arg)
 {
 	BUG_ON(!engine);
 
