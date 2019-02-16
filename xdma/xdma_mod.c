@@ -42,42 +42,42 @@ static const struct pci_device_id pci_ids[] = {
 	{ PCI_DEVICE(0x10ee, 0x903f), },
 	{ PCI_DEVICE(0x10ee, 0x9038), },
 	{ PCI_DEVICE(0x10ee, 0x9028), },
-        { PCI_DEVICE(0x10ee, 0x9018), },
+	{ PCI_DEVICE(0x10ee, 0x9018), },
 	{ PCI_DEVICE(0x10ee, 0x9034), },
 	{ PCI_DEVICE(0x10ee, 0x9024), },
-        { PCI_DEVICE(0x10ee, 0x9014), },
+	{ PCI_DEVICE(0x10ee, 0x9014), },
 	{ PCI_DEVICE(0x10ee, 0x9032), },
 	{ PCI_DEVICE(0x10ee, 0x9022), },
-        { PCI_DEVICE(0x10ee, 0x9012), },
+	{ PCI_DEVICE(0x10ee, 0x9012), },
 	{ PCI_DEVICE(0x10ee, 0x9031), },
 	{ PCI_DEVICE(0x10ee, 0x9021), },
-        { PCI_DEVICE(0x10ee, 0x9011), },
+	{ PCI_DEVICE(0x10ee, 0x9011), },
 
 	{ PCI_DEVICE(0x10ee, 0x8011), },
 	{ PCI_DEVICE(0x10ee, 0x8012), },
-        { PCI_DEVICE(0x10ee, 0x8014), },
-        { PCI_DEVICE(0x10ee, 0x8018), },
-        { PCI_DEVICE(0x10ee, 0x8021), },
-        { PCI_DEVICE(0x10ee, 0x8022), },
-        { PCI_DEVICE(0x10ee, 0x8024), },
-        { PCI_DEVICE(0x10ee, 0x8028), },
-        { PCI_DEVICE(0x10ee, 0x8031), },
-        { PCI_DEVICE(0x10ee, 0x8032), },
-        { PCI_DEVICE(0x10ee, 0x8034), },
-        { PCI_DEVICE(0x10ee, 0x8038), },
+	{ PCI_DEVICE(0x10ee, 0x8014), },
+	{ PCI_DEVICE(0x10ee, 0x8018), },
+	{ PCI_DEVICE(0x10ee, 0x8021), },
+	{ PCI_DEVICE(0x10ee, 0x8022), },
+	{ PCI_DEVICE(0x10ee, 0x8024), },
+	{ PCI_DEVICE(0x10ee, 0x8028), },
+	{ PCI_DEVICE(0x10ee, 0x8031), },
+	{ PCI_DEVICE(0x10ee, 0x8032), },
+	{ PCI_DEVICE(0x10ee, 0x8034), },
+	{ PCI_DEVICE(0x10ee, 0x8038), },
 
-        { PCI_DEVICE(0x10ee, 0x7011), },
-        { PCI_DEVICE(0x10ee, 0x7012), },
-        { PCI_DEVICE(0x10ee, 0x7014), },
-        { PCI_DEVICE(0x10ee, 0x7018), },
-        { PCI_DEVICE(0x10ee, 0x7021), },
-        { PCI_DEVICE(0x10ee, 0x7022), },
-        { PCI_DEVICE(0x10ee, 0x7024), },
+	{ PCI_DEVICE(0x10ee, 0x7011), },
+	{ PCI_DEVICE(0x10ee, 0x7012), },
+	{ PCI_DEVICE(0x10ee, 0x7014), },
+	{ PCI_DEVICE(0x10ee, 0x7018), },
+	{ PCI_DEVICE(0x10ee, 0x7021), },
+	{ PCI_DEVICE(0x10ee, 0x7022), },
+	{ PCI_DEVICE(0x10ee, 0x7024), },
 	{ PCI_DEVICE(0x10ee, 0x7028), },
-        { PCI_DEVICE(0x10ee, 0x7031), },
-        { PCI_DEVICE(0x10ee, 0x7032), },
-        { PCI_DEVICE(0x10ee, 0x7034), },
-        { PCI_DEVICE(0x10ee, 0x7038), },
+	{ PCI_DEVICE(0x10ee, 0x7031), },
+	{ PCI_DEVICE(0x10ee, 0x7032), },
+	{ PCI_DEVICE(0x10ee, 0x7034), },
+	{ PCI_DEVICE(0x10ee, 0x7038), },
 
 	{ PCI_DEVICE(0x10ee, 0x6828), },
 	{ PCI_DEVICE(0x10ee, 0x6830), },
@@ -184,7 +184,7 @@ static int probe_one(struct pci_dev *pdev, const struct pci_device_id *id)
 	if (rv)
 		goto err_out;
 
-        dev_set_drvdata(&pdev->dev, xpdev);
+	dev_set_drvdata(&pdev->dev, xpdev);
 
 	return 0;
 
@@ -209,7 +209,7 @@ static void remove_one(struct pci_dev *pdev)
 		pdev, xpdev, xpdev->xdev);
 	xpdev_free(xpdev);
 
-        dev_set_drvdata(&pdev->dev, NULL);
+	dev_set_drvdata(&pdev->dev, NULL);
 }
 
 static pci_ers_result_t xdma_error_detected(struct pci_dev *pdev,

@@ -28,16 +28,16 @@
 inline void __write_register(const char *fn, u32 value, void *base,
 				unsigned int off)
 {
-        pr_info("%s: 0x%p, W reg 0x%lx, 0x%x.\n", fn, base, off, value);
-        iowrite32(value, base + off);
+	pr_info("%s: 0x%p, W reg 0x%lx, 0x%x.\n", fn, base, off, value);
+	iowrite32(value, base + off);
 }
 
 inline u32 __read_register(const char *fn, void *base, unsigned int off)
 {
 	u32 v = ioread32(base + off);
 
-        pr_info("%s: 0x%p, R reg 0x%lx, 0x%x.\n", fn, base, off, v);
-        return v;
+	pr_info("%s: 0x%p, R reg 0x%lx, 0x%x.\n", fn, base, off, v);
+	return v;
 }
 #define write_register(v,base,off) __write_register(__func__, v, base, off)
 #define read_register(base,off) __read_register(__func__, base, off)
@@ -85,7 +85,7 @@ static int xvc_shift_bits(void *base, u32 tms_bits, u32 tdi_bits,
 
 static long xvc_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 {
-        struct xdma_cdev *xcdev = (struct xdma_cdev *)filp->private_data;
+	struct xdma_cdev *xcdev = (struct xdma_cdev *)filp->private_data;
 	struct xdma_dev *xdev;
 	struct xvc_ioc xvc_obj;
 	unsigned int opcode;
@@ -166,7 +166,7 @@ static long xvc_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 		u32 tms_store = 0;
 		u32 tdi_store = 0;
 		u32 tdo_store = 0;
-		
+
 		if (bits_left < 32) {
 			/* set number of bits to shift out */
 			write_register(bits_left, iobase, XVC_BAR_LENGTH_REG);
@@ -213,10 +213,10 @@ cleanup:
  * character device file operations for the XVC
  */
 static const struct file_operations xvc_fops = {
-        .owner = THIS_MODULE,
-        .open = char_open,
-        .release = char_close,
-        .unlocked_ioctl = xvc_ioctl,
+	.owner = THIS_MODULE,
+	.open = char_open,
+	.release = char_close,
+	.unlocked_ioctl = xvc_ioctl,
 };
 
 void cdev_xvc_init(struct xdma_cdev *xcdev)

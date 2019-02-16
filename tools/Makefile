@@ -19,4 +19,3 @@ reg_rw: reg_rw.o
 
 clean:
 	rm -rf reg_rw *.o *.bin dma_to_device dma_from_device performance
-

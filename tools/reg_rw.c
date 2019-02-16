@@ -108,7 +108,7 @@ int main(int argc, char **argv)
 	virt_addr = map_base + target;
 	/* read only */
 	if (argc <= 4) {
-		//printf("Read from address %p.\n", virt_addr); 
+		//printf("Read from address %p.\n", virt_addr);
 		switch (access_width) {
 		case 'b':
 			read_result = *((uint8_t *) virt_addr);
