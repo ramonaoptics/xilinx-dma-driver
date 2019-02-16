@@ -486,7 +486,7 @@ struct xdma_user_irq {
 #define XDEV_FLAG_OFFLINE	0x1
 struct xdma_dev {
 	struct list_head list_head;
-        struct list_head rcu_node;
+	struct list_head rcu_node;
 
 	unsigned long magic;		/* structure ID for sanity checks */
 	struct pci_dev *pdev;	/* pci device struct from probe() */
