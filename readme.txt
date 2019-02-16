@@ -40,7 +40,7 @@ Directory and file description:
 	 - perform_hwcount.sh:
 		This script runs hardware performance for XDMA for both Host to
 		Card (H2C) and Card to Host (C2H). The result are copied to
-		'hw_log_h2c.txt' and hw_log_c2h.txt' text files. 
+		'hw_log_h2c.txt' and hw_log_c2h.txt' text files.
 		For each direction the performance script loops from 64 bytes
 		to 4MBytes and generate performance numbers (byte size doubles
 		for each loop count).
@@ -56,7 +56,7 @@ Directory and file description:
 		are connected. Running on AXI-ST example design will not
 		generate proper numbers.
 		If a AXI-ST design is independent of H2C and C2H, performance
-		number can be generated. 
+		number can be generated.
 	- data/:
 		This directory contains binary data files that are used for DMA
 		data transfers to the Xilinx FPGA PCIe endpoint device.
@@ -82,7 +82,7 @@ Usage:
         ./run_test.sh
   - Check driver Version number
         modinfo xdma (or)
-        modinfo ../xdma/xdma.ko    
+        modinfo ../xdma/xdma.ko
 
 Updates and Backward Compaitiblity:
   - The following features were added to the PCIe DMA IP and driver in Vivado
@@ -126,4 +126,4 @@ Frequently asked questions:
      Note: Interrupt vs Poll mode will apply to all DMA channels. If desired the
      driver can be modified such that some channels are interrupt driven while
      others are polling driven. Refer to the poll mode section of PG195 for
-     additional information on using the PCIe DMA IP in poll mode. 
+     additional information on using the PCIe DMA IP in poll mode.
