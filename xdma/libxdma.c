@@ -4032,7 +4032,7 @@ static int complete_cyclic(struct xdma_engine *engine, char __user *buf,
 
 	spin_lock_irqsave(&engine->lock, flags);
 
-  /* where the host currently is in the ring buffer */
+	/* where the host currently is in the ring buffer */
 	head = engine->rx_head;
 
 	/* iterate over newly received results */
