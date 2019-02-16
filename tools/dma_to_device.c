@@ -10,7 +10,7 @@
  * You may select, at your option, one of the above-listed licenses.
  */
 
-#define _BSD_SOURCE
+#define _DEFAULT_SOURCE
 #define _XOPEN_SOURCE 500
 #include <assert.h>
 #include <fcntl.h>
