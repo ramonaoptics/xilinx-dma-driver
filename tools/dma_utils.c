@@ -61,6 +61,7 @@ ssize_t read_to_buffer(char *fname, int fd, char *buffer, uint64_t size,
 			if (rc != offset) {
 				fprintf(stderr, "%s, seek off 0x%lx != 0x%lx.\n",
 					fname, rc, offset);
+				errno = EIO;
 				perror("seek file");
 				return -EIO;
 			}
@@ -71,7 +72,8 @@ ssize_t read_to_buffer(char *fname, int fd, char *buffer, uint64_t size,
 		if (rc != bytes) {
 			fprintf(stderr, "%s, R off 0x%lx, 0x%lx != 0x%lx.\n",
 				fname, count, rc, bytes);
-				perror("read file");
+			errno = EIO;
+			perror("read file");
 			return -EIO;
 		}
 
@@ -107,6 +109,7 @@ ssize_t write_from_buffer(char *fname, int fd, char *buffer, uint64_t size,
 			if (rc != offset) {
 				fprintf(stderr, "%s, seek off 0x%lx != 0x%lx.\n",
 					fname, rc, offset);
+				errno = EIO;
 				perror("seek file");
 				return -EIO;
 			}
@@ -117,7 +120,8 @@ ssize_t write_from_buffer(char *fname, int fd, char *buffer, uint64_t size,
 		if (rc != bytes) {
 			fprintf(stderr, "%s, W off 0x%lx, 0x%lx != 0x%lx.\n",
 				fname, offset, rc, bytes);
-				perror("write file");
+			errno = EIO;
+			perror("write file");
 			return -EIO;
 		}
 
