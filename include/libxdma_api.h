@@ -39,7 +39,7 @@ typedef struct {
  */
 //static XDMA_Statistics stats;
 
-/* 
+/*
  * xdma_device_open - read the pci bars and configure the fpga
  *	should be called from probe()
  * 	NOTE:
@@ -53,12 +53,12 @@ typedef struct {
  *	 libxdma will update the user_max/channel_max
  * returns
  *	a opaque handle (for libxdma to identify the device)
- *	NULL, in case of error  
+ *	NULL, in case of error
  */
 void *xdma_device_open(const char *mod_name, struct pci_dev *pdev,
 		 int *user_max, int *h2c_channel_max, int *c2h_channel_max);
 
-/* 
+/*
  * xdma_device_close - prepare fpga for removal: disable all interrupts (users
  * and xdma) and release all resources
  *	should called from remove()
@@ -67,7 +67,7 @@ void *xdma_device_open(const char *mod_name, struct pci_dev *pdev,
  */
 void xdma_device_close(struct pci_dev *pdev, void *dev_handle);
 
-/* 
+/*
  * xdma_device_restart - restart the fpga
  * @pdev: ptr to struct pci_dev
  * TODO:
@@ -83,7 +83,7 @@ int xdma_device_restart(struct pci_dev *pdev, void *dev_handle);
  * interrupt, it will call the corresponding handle if it is registered and
  * enabled.
  *
- * @pdev: ptr to the the pci_dev struct	
+ * @pdev: ptr to the the pci_dev struct
  * @mask: bitmask of user interrupts (0 ~ 15)to be registered
  *		bit 0: user interrupt 0
  *		...
@@ -101,7 +101,7 @@ int xdma_user_isr_register(void *dev_hndl, unsigned int mask,
 
 /*
  * xdma_user_isr_enable/disable - enable or disable user interrupt
- * @pdev: ptr to the the pci_dev struct	
+ * @pdev: ptr to the the pci_dev struct
  * @mask: bitmask of user interrupts (0 ~ 15)to be registered
  * return < 0 in case of error
  * TODO: exact error code will be defined later
@@ -125,6 +125,6 @@ int xdma_user_isr_disable(void *dev_hndl, unsigned int mask);
  */
 ssize_t xdma_xfer_submit(void *dev_hndl, int channel, bool write, u64 ep_addr,
 			struct sg_table *sgt, bool dma_mapped, int timeout_ms);
-			
+
 
 #endif
