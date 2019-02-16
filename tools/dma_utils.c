@@ -17,6 +17,7 @@
 #include <errno.h>
 #include <sys/types.h>
 
+#include "dma_utils.h"
 /*
  * man 2 write:
  * On Linux, write() (and similar system calls) will transfer at most

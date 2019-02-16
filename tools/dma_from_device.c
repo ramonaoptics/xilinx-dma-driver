@@ -21,6 +21,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <time.h>
+#include <errno.h>
+
 
 #include <sys/mman.h>
 #include <sys/stat.h>
@@ -28,7 +30,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "dma_utils.c"
+#include "dma_utils.h"
 
 #define DEVICE_NAME_DEFAULT "/dev/xdma0_c2h_0"
 #define SIZE_DEFAULT (32)
