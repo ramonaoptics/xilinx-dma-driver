@@ -13,6 +13,13 @@
 #ifndef _XDMA_IOCALLS_POSIX_H_
 #define _XDMA_IOCALLS_POSIX_H_
 
+#ifdef __KERNEL__
+#include <linux/types.h>
+#else
+#include <stdint.h>
+#include <linux/types.h>
+#endif
+
 #include <linux/ioctl.h>
 
 

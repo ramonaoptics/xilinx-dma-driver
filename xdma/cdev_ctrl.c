@@ -13,9 +13,9 @@
 #define pr_fmt(fmt)     KBUILD_MODNAME ":%s: " fmt, __func__
 
 #include <linux/ioctl.h>
+#include "cdev_ctrl.h"
 #include "version.h"
 #include "xdma_cdev.h"
-#include "cdev_ctrl.h"
 
 /*
  * character device file operations for control bus (through control bridge)

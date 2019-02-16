@@ -26,7 +26,8 @@ ifneq ($(KERNELRELEASE),)
                            cdev_xvc.o \
                            cdev_bypass.o \
                            xdma_mod.o \
-                           xdma_debug.o
+                           xdma_debug.o \
+													 xdma_engine.o
 	obj-m := $(TARGET_MODULE).o
 else
 	BUILDSYSTEM_DIR:=/lib/modules/$(shell uname -r)/build
