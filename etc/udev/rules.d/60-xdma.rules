@@ -6,6 +6,6 @@
 # Based on the unique kernel name (%k) a path for the symbolic link is created (%c).
 #
 # Leon Woestenberg <leon@sidebranch.com>
-# 
+#
 
 KERNEL=="xdma[0-9]*", PROGRAM="/bin/bash /etc/udev/rules.d/xdma-udev-command.sh %k", SYMLINK+="%c",  MODE="0666", OPTIONS="last_rule"
