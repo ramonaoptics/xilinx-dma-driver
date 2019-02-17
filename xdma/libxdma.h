@@ -211,6 +211,13 @@
 #define dbg_desc(...)
 #endif
 
+// See info about PAGE_SHIFT, PAGE_SIZE, PAGE_MASK
+// https://elixir.bootlin.com/linux/v4.6/source/arch/x86/include/asm/page_types.h#L10
+#define CIRC_BUFFER_N_PAGES_LOG2 ( 0 )
+#define CIRC_BUFFER_SINGLE_SHIFT ( PAGE_SHIFT + CIRC_BUFFER_N_PAGES_LOG2 )
+#define CIRC_BUFFER_SINGLE_SIZE ( 1UL << CIRC_BUFFER_SINGLE_SHIFT )
+#define CIRC_BUFFER_SINGLE_MASK ( ~(CIRC_BUFFER_SINGLE_SIZE-1) )
+
 extern unsigned int poll_mode;
 extern unsigned int enable_credit_mp;
 

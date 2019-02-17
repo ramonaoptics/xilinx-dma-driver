@@ -2655,7 +2655,7 @@ static int copy_cyclic_to_user(struct xdma_engine *engine, int pkt_length,
 
 	/* EOP found? Transfer anything from head to EOP */
 	while (more) {
-		unsigned int copy = more > PAGE_SIZE ? PAGE_SIZE : more;
+		unsigned int copy = more > CIRC_BUFFER_SINGLE_SIZE ? CIRC_BUFFER_SINGLE_SIZE : more;
 		unsigned int blen = count - engine->user_buffer_index;
 		int rv;
 
@@ -2686,8 +2686,9 @@ static int copy_cyclic_to_user(struct xdma_engine *engine, int pkt_length,
 		if (head >= CYCLIC_RX_PAGES_MAX) {
 			head = 0;
 			sg = engine->cyclic_sgt.sgl;
-		} else
+		} else {
 			sg = sg_next(sg);
+		}
 	}
 
 	return pkt_length;
@@ -2733,10 +2734,10 @@ static int complete_cyclic(struct xdma_engine *engine, char __user *buf,
 				engine->name, engine->rx_head,
 				result[engine->rx_head].status);
 			fault = 1;
-		} else if (result[engine->rx_head].length > PAGE_SIZE) {
-			pr_info("%s, result[%d].len 0x%x, > PAGE_SIZE 0x%lx.\n",
+		} else if (result[engine->rx_head].length > CIRC_BUFFER_SINGLE_SIZE) {
+			pr_info("%s, result[%d].len 0x%x, > CIRC_BUFFER_SINGLE_SIZE 0x%lx.\n",
 				engine->name, engine->rx_head,
-				result[engine->rx_head].length, PAGE_SIZE);
+				result[engine->rx_head].length, CIRC_BUFFER_SINGLE_SIZE);
 			fault = 1;
 		} else if (result[engine->rx_head].length == 0) {
 			pr_info("%s, result[%d].length 0x%x.\n",
@@ -2774,7 +2775,7 @@ static int complete_cyclic(struct xdma_engine *engine, char __user *buf,
 
 	if (fault)
 		return -EIO;
-
+	// Mark notes: Is this where they copy the data to the user????
 	rc = copy_cyclic_to_user(engine, pkt_length, head, buf, count);
 	engine->rx_overrun = 0;
 	/* if copy is successful, release credits */
@@ -2833,7 +2834,7 @@ static void sgt_free_with_pages(struct sg_table *sgt, int dir,
 
 		if (pg) {
 			if (pdev)
-				pci_unmap_page(pdev, bus, PAGE_SIZE, dir);
+				pci_unmap_page(pdev, bus, CIRC_BUFFER_SINGLE_SIZE, dir);
 			__free_page(pg);
 		} else
 			break;
@@ -2847,6 +2848,7 @@ static int sgt_alloc_with_pages(struct sg_table *sgt, unsigned int npages,
 {
 	struct scatterlist *sg;
 	int i;
+	dbg_tfr("Allocating scatter gather pages\n");
 
 	if (sg_alloc_table(sgt, npages, GFP_KERNEL)) {
 		pr_info("sgt OOM.\n");
@@ -2855,7 +2857,8 @@ static int sgt_alloc_with_pages(struct sg_table *sgt, unsigned int npages,
 
 	sg = sgt->sgl;
 	for (i = 0; i < npages; i++, sg = sg_next(sg)) {
-		struct page *pg = alloc_page(GFP_KERNEL);
+		struct page *pg = alloc_pages(GFP_KERNEL,
+						CIRC_BUFFER_N_PAGES_LOG2);
 
 		if (!pg) {
 			pr_info("%d/%u, page OOM.\n", i, npages);
@@ -2863,7 +2866,8 @@ static int sgt_alloc_with_pages(struct sg_table *sgt, unsigned int npages,
 		}
 
 		if (pdev) {
-			dma_addr_t bus = pci_map_page(pdev, pg, 0, PAGE_SIZE,
+			dma_addr_t bus = pci_map_page(pdev, pg, 0,
+							CIRC_BUFFER_SINGLE_SIZE,
 							dir);
 			if (unlikely(pci_dma_mapping_error(pdev, bus))) {
 				pr_info("%d/%u, page 0x%p map err.\n",
@@ -2872,9 +2876,9 @@ static int sgt_alloc_with_pages(struct sg_table *sgt, unsigned int npages,
 				goto err_out;
 			}
 			sg_dma_address(sg) = bus;
-			sg_dma_len(sg) = PAGE_SIZE;
+			sg_dma_len(sg) = CIRC_BUFFER_SINGLE_SIZE;
 		}
-		sg_set_page(sg, pg, PAGE_SIZE, 0);
+		sg_set_page(sg, pg, CIRC_BUFFER_SINGLE_SIZE, 0);
 	}
 
 	sgt->orig_nents = sgt->nents = npages;
