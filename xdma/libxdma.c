@@ -2693,6 +2693,8 @@ static int copy_cyclic_to_user(struct xdma_engine *engine, int pkt_length,
 	return pkt_length;
 }
 
+// TODO: Mark Notes:
+// Is count here the number of bytes to read????
 static int complete_cyclic(struct xdma_engine *engine, char __user *buf,
 			   size_t count)
 {
@@ -2713,6 +2715,8 @@ static int complete_cyclic(struct xdma_engine *engine, char __user *buf,
 
 	/* where the host currently is in the ring buffer */
 	head = engine->rx_head;
+	dbg_tfr("Received a request to read 0x%lx bytes.", count);
+	dbg_tfr("engine->eop_found is %d", engine->eop_found);
 
 	/* iterate over newly received results */
 	while (engine->rx_head != engine->rx_tail||engine->rx_overrun) {
