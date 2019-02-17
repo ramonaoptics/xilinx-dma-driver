@@ -72,7 +72,10 @@ ssize_t show_device_numbers(struct device *dev, struct device_attribute *attr,
 				 char *buf)
 {
 	struct xdma_pci_dev *xpdev = (struct xdma_pci_dev *)dev_get_drvdata(dev);
-
+	// Not too sure if this should be CIRC_BUFFER_SINGLE_SIZE was PAGE_SIZE
+	// before, but
+	// I'm not too sure what buf is set to
+#error "this code never gets compiled"
 	return snprintf(buf, PAGE_SIZE, "%d\t%d\n",
 			xpdev->major, xpdev->xdev->idx);
 }
