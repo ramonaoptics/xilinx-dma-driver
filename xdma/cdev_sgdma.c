@@ -166,11 +166,18 @@ static int char_sgdma_map_user_buf_to_sgl(struct xdma_io_cb *cb, bool write)
 	unsigned long len = cb->len;
 	char *buf = cb->buf;
 	struct scatterlist *sg;
+	// I think these references to PAGE_SIZE
+	// must be kept due to how scatter gather tables are allocated.
+	// I think this creates a scatter gather list from a user buffer.
+	// Honestly, I don't care too much about writing things to the FPGA
+	// Right now, so lets leave these as is.
 	unsigned int pages_nr = (((unsigned long)buf + len + PAGE_SIZE -1) -
 				 ((unsigned long)buf & PAGE_MASK))
 				>> PAGE_SHIFT;
+
 	int i;
 	int rv;
+	dbg_tfr("Required %ud pages for the sg_alloc_table\n", pages_nr);
 
 	if (pages_nr == 0) {
 		return -EINVAL;
@@ -217,7 +224,6 @@ static int char_sgdma_map_user_buf_to_sgl(struct xdma_io_cb *cb, bool write)
 
 	sg = sgt->sgl;
 	for (i = 0; i < pages_nr; i++, sg = sg_next(sg)) {
-		//unsigned int offset = (uintptr_t)buf & ~PAGE_MASK;
 		unsigned int offset = offset_in_page(buf);
 		unsigned int nbytes = min_t(unsigned int, PAGE_SIZE - offset, len);
 
