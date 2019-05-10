@@ -42,15 +42,15 @@ MODULE_LICENSE("Dual BSD/GPL");
 #endif
 
 /* Module Parameters */
-static unsigned int poll_mode;
+static unsigned int poll_mode = 0;
 module_param(poll_mode, uint, 0644);
 MODULE_PARM_DESC(poll_mode, "Set 1 for hw polling, default is 0 (interrupts)");
 
-static unsigned int interrupt_mode;
+static unsigned int interrupt_mode = 0;
 module_param(interrupt_mode, uint, 0644);
 MODULE_PARM_DESC(interrupt_mode, "0 - MSI-x , 1 - MSI, 2 - Legacy");
 
-static unsigned int enable_credit_mp;
+static unsigned int enable_credit_mp = 0;
 module_param(enable_credit_mp, uint, 0644);
 MODULE_PARM_DESC(enable_credit_mp, "Set 1 to enable creidt feature, default is 0 (no credit control)");
 
